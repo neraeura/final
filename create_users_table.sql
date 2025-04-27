@@ -1,0 +1,35 @@
+
+CREATE TABLE IF NOT EXISTS users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    google_id VARCHAR(255) UNIQUE,
+    name VARCHAR(255),
+    email VARCHAR(255),
+    profile_pic_url VARCHAR(255),
+    pet_pic_url VARCHAR(255) DEFAULT NULL,
+    pet_name VARCHAR(255) DEFAULT NULL,
+    date_of_birth DATE DEFAULT NULL,
+    tagline TEXT DEFAULT NULL,
+    personality_type VARCHAR(255) DEFAULT NULL,
+    date_joined DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS matches (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    matched_user_id INT NOT NULL,
+    match_date DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS accepts (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    accepted_user_id INT NOT NULL,
+    accept_date DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS rejects (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    rejected_user_id INT NOT NULL,
+    reject_date DATETIME DEFAULT CURRENT_TIMESTAMP
+);
