@@ -1,10 +1,7 @@
 <?php
-// redirect.php
-
 session_start();
 require_once 'vendor/autoload.php'; 
-
-include 'db.php'; // Database connection
+include 'db.php'; 
 
 // Google Client Configuration
 $clientID = '680845439269-82o88qm1ibcjlsnul3smgg1est9dhv9o.apps.googleusercontent.com';
@@ -21,6 +18,7 @@ $client->addScope('profile');
 
 // Step 1: Handle OAuth 2.0 Redirect Response
 if (isset($_GET['code'])) {
+
     // Exchange authorization code for an access token
     $token = $client->fetchAccessTokenWithAuthCode($_GET['code']);
 
@@ -65,12 +63,16 @@ if (isset($_GET['code'])) {
     $profile = $profile_result->fetch_assoc();
 
     if (empty($profile['pet_name']) || empty($profile['tagline'])) {
-        // Incomplete profile — send to complete_profile.php
-        header('Location: complete_profile.php');
+        session_write_close();
+        header('Location: /finalTest/complete_profile.php');
+        // Force a client redirect with HTML meta refresh (echo msg below)
+        echo '<html><head><meta http-equiv="refresh" content="0;url=/finalTest/complete_profile.php"></head><body>If you are not redirected, <a href="/finalTest/complete_profile.php">click here</a>.</body></html>';
         exit();
     } else {
-        // Complete profile — send to normal account page
-        header('Location: account.php');
+        session_write_close();
+        header('Location: /finalTest/account.php');
+        // Force a client redirect with HTML meta refresh (echo msg below)
+        echo '<html><head><meta http-equiv="refresh" content="0;url=/finalTest/account.php"></head><body>If you are not redirected, <a href="/finalTest/account.php">click here</a>.</body></html>';
         exit();
     }
     
